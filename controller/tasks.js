@@ -31,14 +31,9 @@
 
     const getTask = async (req,res) => {
         try{
-            //const taskID = req.params.id;
-            // const {ObjectId:taskID} = req.params
-            // const task = await Task.findOne({ObjectId:taskID});
-            // console.log(task)
-            // 
             const { id: taskID } = req.params
             const task = await Task.findById({ _id: taskID.replace(/[^a-fA-F0-9]/g, '') })
-            console.log(task, { _id: taskID.replace(/[^a-fA-F0-9]/g, '') });
+            console.log({_id:taskID}, { _id: taskID.replace(/[^a-fA-F0-9]/g, '') });
             if (!task){
                 return res.status(404).json({msg:`no task with id : ${taskID}`})
             }
