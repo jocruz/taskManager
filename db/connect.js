@@ -14,14 +14,10 @@ const mongoose = require('mongoose')
 
 
  */
+mongoose.set('strictQuery', true);
 const connectDB = (url) => {
     mongoose
-    .connect(url,{
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
-        useUnifiedTopology: true,})
+    .connect(url)
 }
 
 module.exports = connectDB
