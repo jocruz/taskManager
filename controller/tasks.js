@@ -37,7 +37,8 @@
             // console.log(task)
             // 
             const { id: taskID } = req.params
-            const task = await Task.findById({ _id: taskID })
+            const task = await Task.findById({ _id: taskID.replace(/[^a-fA-F0-9]/g, '') })
+            console.log(task, { _id: taskID.replace(/[^a-fA-F0-9]/g, '') });
             if (!task){
                 return res.status(404).json({msg:`no task with id : ${taskID}`})
             }
@@ -45,8 +46,8 @@
             // console.log(req.params)
             // res.json(req.params.id);
         } catch (error){
-            console.log(error)      
-            res.status(500).json({msg:error})
+            // console.log(error)      
+            return res.status(404).json({msg:`no task with id `})
         }
     }
 
