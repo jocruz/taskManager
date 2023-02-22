@@ -5,8 +5,22 @@ const mongoose = require('mongoose');
  * The schema specifies that each "Task" document will have a "name" property of type "String" and a "completed" property of type "Boolean".
  * The schema is defined using the mongoose.Schema() function, which takes an object containing the schema definition as an argument.
  */
+
+/**
+ * required is set to an array [true, "Must Provide Name"]. This means that the name field is required
+ * and if it is not provided, Mongoose will throw a validation error with the message "Must Provide Name".
+ */
 const TaskSchema = new mongoose.Schema({
-    name: String,completed:Boolean
+    name: {
+    type: String, 
+    required: [true,"Must Provide Name"],
+    $trim: true,
+    maxlength:[20,'Cannot exceed more than 20 characters']
+},
+    completed:{
+        type: Boolean,
+        default: false
+    },
 });
 
 /**

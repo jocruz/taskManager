@@ -5,6 +5,10 @@ const connectDB = require('./db/connect');
 require('dotenv').config();
 //middleware
 
+/**
+ * app.use(express.json()) is a middleware function in Express that parses incoming requests with JSON payloads.
+ * After we apply the express.json() middleware with app.use(express.json()), the req.body property will be populated with the parsed JSON object
+ */
 app.use(express.json());
 
 //routes
