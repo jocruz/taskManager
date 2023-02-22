@@ -21,7 +21,7 @@ const connectDB = (url) => {
         useCreateIndex: true,
         useCreateIndex: true,
         useFindAndModify: false,
-        useUnifiedTopology: true ,})
+        useUnifiedTopology: true,})
 }
 
 module.exports = connectDB

@@ -1,3 +1,10 @@
+    /**
+     * 
+     * Controllers are responsible for handling the logic of a web application, based on the request that is received from the router.
+     * They typically perform tasks such as retrieving data from a database, processing user input, and rendering views to display data to the user.
+     * 
+     */
+    
     const Task = require('../models/Task')
 
     const getAllTasks = (req,res) => {
