@@ -53,7 +53,10 @@
             const task = await Task.findOneAndUpdate({_id:taskID}, req.body, {
                 new:true,runValidators:true,
             })
-            res.status(200).json({ id:taskID, data:req.body })
+        if (!task){
+            return res.send(404).json({msg:`No task with id: ${taskID}`})
+        }
+        res.status(200).json({ id:taskID })
     } catch (error){
         // This error is for the syntax being off
         return res.status(500).json({msg:error})
