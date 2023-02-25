@@ -9,6 +9,8 @@ require('dotenv').config();
  * app.use(express.json()) is a middleware function in Express that parses incoming requests with JSON payloads.
  * After we apply the express.json() middleware with app.use(express.json()), the req.body property will be populated with the parsed JSON object
  */
+//middleware
+app.use(express.static('./public'));
 app.use(express.json());
 
 //routes

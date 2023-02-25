@@ -31,27 +31,47 @@
 
     const getTask = async (req,res) => {
         try{
+            /**
+             * const taskID = req.params.id;
+             */
             const { id: taskID } = req.params
-            const task = await Task.findById({ _id: taskID.replace(/[^a-fA-F0-9]/g, '') })
-            console.log({_id:taskID}, { _id: taskID.replace(/[^a-fA-F0-9]/g, '') });
-            if (!task){
-                return res.status(404).json({msg:`no task with id : ${taskID}`})
+            const task = await Task.findOne({ _id: taskID})
+            if (!task) {        
+              return res.status(404).json({msg:`No task with ID : ${taskID} was found`})
             }
+
             res.status(200).json({ task })
-            // console.log(req.params)
-            // res.json(req.params.id);
         } catch (error){
-            // console.log(error)      
-            return res.status(404).json({msg:`no task with id `})
+            // This error is for the syntax being off
+            res.status(500).json({msg:error})
         }
     }
 
-    const updateTask = (req,res) =>{
-        res.send ("Update a Task");
+    const updateTask = async (req,res) =>{
+        try{
+            const { id: taskID } = req.params
+            const task = await Task.findOneAndUpdate({_id:taskID}, req.body, {
+                new:true,runValidators:true,
+            })
+            res.status(200).json({ id:taskID, data:req.body })
+    } catch (error){
+        // This error is for the syntax being off
+        return res.status(500).json({msg:error})
     }
+}
 
-    const deleteTask = (req,res) =>{
-        res.send ("Delete a Task");
+    const deleteTask = async (req,res) =>{
+        try{
+            const { id: taskID } = req.params
+            const task = await Task.findOneAndDelete({ _id: taskID })
+            if (!task) {        
+                return res.status(404).json({msg:`No task with ID : ${taskID} was found`})
+              }
+              res.status(200).json({msg:`The following task was deleted: ${taskID}`})
+        } catch (error){
+            // This error is for the syntax being off
+            return res.status(500).json({msg:error})
+        }
     }
 
     module.exports = {
