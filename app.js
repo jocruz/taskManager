@@ -4,6 +4,8 @@ const tasks = require('./routes/tasks');
 const connectDB = require('./db/connect');
 require('dotenv').config();
 const notFound = require('./middleware/not-found');
+const errorHanlderMiddleware = require('./middleware/error-handler');
+const characterLimitMax = require('./middleware/character-limit');
 //middleware
 
 /**
@@ -17,7 +19,10 @@ app.use(express.json());
 //routes
 app.use('/api/v1/tasks',tasks)
 app.use(notFound)
-const port = 3000;
+app.use(errorHanlderMiddleware)
+app.use(characterLimitMax)
+
+const port = process.env.PORT || 3000;
 /**
  * We use async since we returned a promise on the connect.js file
  * We will try{} and invoke connectDB using the .env file and if so we will listen to the port
